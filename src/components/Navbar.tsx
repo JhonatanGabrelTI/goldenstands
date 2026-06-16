@@ -89,7 +89,7 @@ export const Navbar: React.FC = () => {
           {/* CTA & Mobile Toggle */}
           <div style={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
             <a 
-              href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20arquitetura%20promocional%20da%20Gold." 
+              href="https://wa.me/5543998420048?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20arquitetura%20promocional%20da%20Gold." 
               target="_blank" 
               rel="noopener noreferrer" 
               className="btn btn-primary desktop-only"
@@ -159,7 +159,7 @@ export const Navbar: React.FC = () => {
               ))}
             </ul>
             <a
-              href="https://wa.me/5511999999999?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20arquitetura%20promocional%20da%20Gold."
+              href="https://wa.me/5543998420048?text=Olá!%20Gostaria%20de%20saber%20mais%20sobre%20os%20serviços%20de%20arquitetura%20promocional%20da%20Gold."
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"

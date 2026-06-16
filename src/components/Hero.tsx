@@ -24,7 +24,7 @@ export const Hero: React.FC = () => {
     delay: Math.random() * -20
   }));
 
-  const whatsappNumber = "5511999999999";
+  const whatsappNumber = "5543998420048";
   const quoteMessage = encodeURIComponent("Olá! Estou no site da Gold Arquitetura e gostaria de solicitar um projeto para estande ou cenografia.");
   const chatMessage = encodeURIComponent("Olá! Gostaria de conversar com um arquiteto da Gold sobre um projeto de estande ou cenografia.");
 

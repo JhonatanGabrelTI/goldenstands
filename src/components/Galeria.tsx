@@ -154,7 +154,7 @@ export const Galeria: React.FC = () => {
                     </p>
                     
                     <a
-                      href={`https://wa.me/5511999999999?text=${encodeURIComponent(`Olá! Vi o projeto "${selectedItem.title}" no portfólio da Gold Arquitetura e gostaria de solicitar um projeto similar.`)}`}
+                      href={`https://wa.me/5543998420048?text=${encodeURIComponent(`Olá! Vi o projeto "${selectedItem.title}" no portfólio da Gold Arquitetura e gostaria de solicitar um projeto similar.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-primary"

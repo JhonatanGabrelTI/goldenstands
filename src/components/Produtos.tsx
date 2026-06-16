@@ -77,7 +77,7 @@ export const Produtos: React.FC = () => {
     ? productsList 
     : productsList.filter(p => p.category === activeFilter);
 
-  const whatsappNumber = "5511999999999";
+  const whatsappNumber = "5543998420048";
 
   const getWhatsappLink = (productName: string) => {
     const message = encodeURIComponent(`Olá! Estou interessado na solução: ${productName}. Gostaria de solicitar um projeto/orçamento.`);

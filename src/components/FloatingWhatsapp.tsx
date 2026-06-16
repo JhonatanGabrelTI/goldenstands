@@ -2,7 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 
 export const FloatingWhatsapp: React.FC = () => {
-  const whatsappNumber = "5511999999999"; // Exemplo de número
+  const whatsappNumber = "5543998420048"; // Exemplo de número
   const message = encodeURIComponent("Olá! Gostaria de solicitar um orçamento ou tirar dúvidas sobre peças e assistência técnica.");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 

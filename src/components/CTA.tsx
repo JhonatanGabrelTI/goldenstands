@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { MessageSquare } from 'lucide-react';
 
 export const CTA: React.FC = () => {
-  const whatsappNumber = "5511999999999";
+  const whatsappNumber = "5543998420048";
   const message = encodeURIComponent("Olá! Preciso de um projeto de estande ou cenografia para um evento. Poderiam me ajudar?");
   const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${message}`;
 

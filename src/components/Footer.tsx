@@ -59,15 +59,15 @@ export const Footer: React.FC = () => {
           <ul className="contacts-list">
             <li>
               <Phone size={16} className="text-gold" />
-              <span>(11) 3999-9999 / (11) 99999-9999</span>
+              <span>(43) 9.9842-0048 / (43) 9.9990-5209</span>
             </li>
             <li>
               <Mail size={16} className="text-gold" />
-              <span>contato@goldpav.com.br</span>
+              <span>vendas@goldap.com.br</span>
             </li>
             <li>
               <MapPin size={16} className="text-gold" />
-              <span>Av. Industrial, 1200 - São Paulo, SP</span>
+              <span>Av. Gov. Paulo Cruz Pímentel, 129 - Ibaiti PR</span>
             </li>
             <li>
               <Clock size={16} className="text-gold" />
@@ -81,8 +81,8 @@ export const Footer: React.FC = () => {
       <div className="container map-segment">
         <div className="map-wrapper glass-panel">
           <iframe 
-            title="Localização GoldPav"
-            src="https://maps.google.com/maps?q=Av.%20Industrial,%201200%20-%20S%C3%A3o%20Paulo,%20SP&t=&z=14&ie=UTF8&iwloc=&output=embed" 
+            title="Localização Gold"
+            src="https://maps.google.com/maps?q=Av.%20Gov.%20Paulo%20Cruz%20P%C3%ADmentel,%20129%20-%20Ibaiti%20PR&t=&z=14&ie=UTF8&iwloc=&output=embed" 
             width="100%" 
             height="320" 
             style={{ border: 0 }} 
