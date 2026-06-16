@@ -46,32 +46,33 @@ export const Diferenciais: React.FC = () => {
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.1
+        staggerChildren: 0.15
       }
     }
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40, scale: 0.95 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.6, ease: "easeOut" as any }
+      scale: 1,
+      transition: { duration: 0.7, ease: "easeOut" as const }
     }
   };
 
   return (
-    <section id="diferenciais" className="section" style={{ background: 'linear-gradient(180deg, var(--navy-dark) 0%, var(--navy) 100%)' }}>
+    <section id="diferenciais" className="section" style={{ background: 'linear-gradient(180deg, var(--navy-dark) 0%, var(--navy-light) 100%)' }}>
       <div className="container">
         
         {/* Section Header */}
         <div className="section-header text-center">
           <motion.span 
             className="badge"
-            initial={{ opacity: 0, y: 15 }}
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             Diferenciais
           </motion.span>
@@ -79,7 +80,7 @@ export const Diferenciais: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: 0.1 }}
+            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
           >
             Por que a <span className="text-gold">Gold</span> é líder no setor
           </motion.h2>
@@ -87,7 +88,7 @@ export const Diferenciais: React.FC = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.5, delay: 0.2 }}
+            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
           >
             Entregamos criatividade, engenharia e execução impecável para transformar seu espaço em uma experiência de marca inesquecível.
           </motion.p>
@@ -107,11 +108,12 @@ export const Diferenciais: React.FC = () => {
               className="glass-panel card-diferencial"
               variants={cardVariants}
               whileHover={{ 
-                y: -10, 
-                borderColor: 'rgba(212, 175, 55, 0.4)', 
-                boxShadow: 'var(--shadow-gold), var(--shadow-md)',
-                backgroundColor: 'rgba(255, 255, 255, 0.05)'
+                y: -12, 
+                borderColor: 'rgba(232, 200, 106, 0.5)', 
+                boxShadow: '0 15px 35px rgba(232, 200, 106, 0.15)',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)'
               }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <div className="icon-container-dif">
                 {item.icon}
@@ -132,41 +134,50 @@ export const Diferenciais: React.FC = () => {
 
         .card-diferencial {
           padding: 2.5rem 2rem;
-          transition: border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+          transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           text-align: left;
+          border-radius: 16px;
         }
 
         .icon-container-dif {
-          padding: 1rem;
-          border-radius: 12px;
-          background: rgba(212, 175, 55, 0.1);
+          padding: 1.2rem;
+          border-radius: 14px;
+          background: rgba(232, 200, 106, 0.1);
           color: var(--gold);
           margin-bottom: 1.5rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.3s ease;
+          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+          border: 1px solid rgba(232, 200, 106, 0.2);
         }
 
         .card-diferencial:hover .icon-container-dif {
-          background: var(--gold);
+          background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
           color: var(--navy-dark);
-          box-shadow: 0 0 15px rgba(212, 175, 55, 0.4);
+          box-shadow: 0 10px 25px rgba(232, 200, 106, 0.4);
+          transform: scale(1.1) rotate(5deg);
         }
 
         .card-title-dif {
           margin-bottom: 1rem;
-          font-weight: 600;
-          font-size: 1.25rem;
+          font-weight: 700;
+          font-size: 1.35rem;
+          color: var(--white);
+          transition: color 0.3s ease;
+        }
+
+        .card-diferencial:hover .card-title-dif {
+          color: var(--gold);
         }
 
         .card-desc-dif {
           color: var(--text-secondary);
-          font-size: 0.95rem;
-          line-height: 1.5;
+          font-size: 1rem;
+          line-height: 1.6;
         }
 
         @media (max-width: 992px) {

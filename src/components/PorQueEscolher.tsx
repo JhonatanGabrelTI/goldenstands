@@ -17,8 +17,8 @@ const StatCounter: React.FC<StatCounterProps> = ({ from, to, suffix = "", prefix
     if (isInView && ref.current) {
       const node = ref.current;
       const controls = animate(from, to, {
-        duration: 2,
-        ease: "easeOut",
+        duration: 2.5,
+        ease: "easeOut" as const,
         onUpdate(value) {
           node.textContent = prefix + Math.floor(value).toLocaleString('pt-BR') + suffix;
         }
@@ -77,23 +77,48 @@ export const PorQueEscolher: React.FC = () => {
     }
   ];
 
+  const containerVariants = {
+    hidden: {},
+    visible: { transition: { staggerChildren: 0.15 } }
+  };
+
+  const pilarVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.6, ease: "easeOut" as const } }
+  };
+
   return (
-    <section id="por-que-gold" className="section" style={{ background: 'linear-gradient(180deg, var(--navy) 0%, var(--navy-dark) 100%)' }}>
+    <section id="por-que-gold" className="section" style={{ background: 'linear-gradient(180deg, var(--navy-light) 0%, var(--navy-dark) 100%)' }}>
       <div className="container">
         
         {/* Header */}
         <div className="section-header text-center" style={{ marginBottom: '3rem' }}>
-          <span className="badge">Diferenciação</span>
-          <h2>Por que Escolher a <span className="text-gold">Gold</span>?</h2>
+          <motion.span 
+            className="badge"
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            Diferenciação
+          </motion.span>
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6, delay: 0.1 }}
+          >
+            Por que Escolher a <span className="text-gold">Gold</span>?
+          </motion.h2>
         </div>
 
         {/* Intro Banner */}
         <motion.div 
-          className="intro-banner glass-panel"
-          initial={{ opacity: 0, y: 20 }}
+          className="intro-banner glass-panel-gold"
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         >
           <div className="intro-content">
             <h3 className="intro-title">Nossa <span className="text-gold">Filosofia</span></h3>
@@ -110,15 +135,25 @@ export const PorQueEscolher: React.FC = () => {
         </motion.div>
 
         {/* Pillars Grid */}
-        <div className="pillars-grid">
+        <motion.div 
+          className="pillars-grid"
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {pilares.map((pilar, idx) => (
             <motion.div 
               key={idx}
               className="pillar-card glass-panel"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
+              variants={pilarVariants}
+              whileHover={{ 
+                y: -12,
+                borderColor: 'rgba(232, 200, 106, 0.5)',
+                boxShadow: '0 15px 35px rgba(232, 200, 106, 0.15)',
+                backgroundColor: 'rgba(255, 255, 255, 0.04)'
+              }}
+              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <div className="pillar-icon-wrapper">
                 {pilar.icon}
@@ -127,24 +162,31 @@ export const PorQueEscolher: React.FC = () => {
               <p className="pillar-desc">{pilar.desc}</p>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         <div className="split-layout">
           {/* Timeline Block */}
           <div className="timeline-column">
-            <h3 className="column-title" style={{ marginBottom: '2.5rem', borderLeft: '3px solid var(--gold)', paddingLeft: '1rem' }}>
+            <motion.h3 
+              className="column-title" 
+              style={{ marginBottom: '2.5rem', borderLeft: '3px solid var(--gold)', paddingLeft: '1rem' }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6 }}
+            >
               Nossa Trajetória
-            </h3>
+            </motion.h3>
             
             <div className="timeline-container">
               {milestones.map((milestone, idx) => (
                 <motion.div 
                   key={idx} 
                   className="timeline-item"
-                  initial={{ opacity: 0, x: -30 }}
+                  initial={{ opacity: 0, x: -40 }}
                   whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true, margin: "-100px" }}
-                  transition={{ duration: 0.6, delay: idx * 0.15 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 0.7, delay: idx * 0.15, ease: "easeOut" }}
                 >
                   <div className="timeline-dot-wrapper">
                     <div className="timeline-dot"></div>
@@ -162,20 +204,30 @@ export const PorQueEscolher: React.FC = () => {
 
           {/* Dashboard Block */}
           <div className="dashboard-column">
-            <h3 className="column-title" style={{ marginBottom: '2.5rem', borderLeft: '3px solid var(--gold)', paddingLeft: '1rem' }}>
+            <motion.h3 
+              className="column-title" 
+              style={{ marginBottom: '2.5rem', borderLeft: '3px solid var(--gold)', paddingLeft: '1rem' }}
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.1 }}
+            >
               Gold em Números
-            </h3>
+            </motion.h3>
 
-            <div className="dashboard-grid">
+            <motion.div 
+              className="dashboard-grid"
+              variants={containerVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, margin: "-50px" }}
+            >
               
               {/* Card 1 */}
               <motion.div 
                 className="glass-panel dashboard-card"
-                whileHover={{ y: -5, borderColor: 'rgba(212, 175, 55, 0.3)' }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5 }}
+                variants={pilarVariants}
+                whileHover={{ y: -8, borderColor: 'rgba(232, 200, 106, 0.4)', boxShadow: '0 12px 30px rgba(232, 200, 106, 0.15)' }}
               >
                 <div className="dash-card-header">
                   <span className="glow-dot"></span>
@@ -191,11 +243,8 @@ export const PorQueEscolher: React.FC = () => {
               {/* Card 2 */}
               <motion.div 
                 className="glass-panel dashboard-card"
-                whileHover={{ y: -5, borderColor: 'rgba(212, 175, 55, 0.3)' }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.1 }}
+                variants={pilarVariants}
+                whileHover={{ y: -8, borderColor: 'rgba(232, 200, 106, 0.4)', boxShadow: '0 12px 30px rgba(232, 200, 106, 0.15)' }}
               >
                 <div className="dash-card-header">
                   <span className="glow-dot"></span>
@@ -211,11 +260,8 @@ export const PorQueEscolher: React.FC = () => {
               {/* Card 3 */}
               <motion.div 
                 className="glass-panel dashboard-card"
-                whileHover={{ y: -5, borderColor: 'rgba(212, 175, 55, 0.3)' }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.2 }}
+                variants={pilarVariants}
+                whileHover={{ y: -8, borderColor: 'rgba(232, 200, 106, 0.4)', boxShadow: '0 12px 30px rgba(232, 200, 106, 0.15)' }}
               >
                 <div className="dash-card-header">
                   <span className="glow-dot"></span>
@@ -231,11 +277,8 @@ export const PorQueEscolher: React.FC = () => {
               {/* Card 4 */}
               <motion.div 
                 className="glass-panel dashboard-card"
-                whileHover={{ y: -5, borderColor: 'rgba(212, 175, 55, 0.3)' }}
-                initial={{ opacity: 0, scale: 0.95 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.3 }}
+                variants={pilarVariants}
+                whileHover={{ y: -8, borderColor: 'rgba(232, 200, 106, 0.4)', boxShadow: '0 12px 30px rgba(232, 200, 106, 0.15)' }}
               >
                 <div className="dash-card-header">
                   <span className="glow-dot"></span>
@@ -248,7 +291,7 @@ export const PorQueEscolher: React.FC = () => {
                 <div className="dash-subtext">Equipe técnica disponível durante toda a montagem e evento.</div>
               </motion.div>
 
-            </div>
+            </motion.div>
           </div>
         </div>
 
@@ -260,14 +303,13 @@ export const PorQueEscolher: React.FC = () => {
           padding: 3.5rem;
           margin-bottom: 3rem;
           border-left: 4px solid var(--gold);
-          background: rgba(255, 255, 255, 0.02);
           text-align: left;
         }
 
         .intro-title {
           font-family: var(--font-headings);
           font-size: 2rem;
-          font-weight: 700;
+          font-weight: 800;
           color: var(--white);
           margin-bottom: 1.5rem;
         }
@@ -297,32 +339,27 @@ export const PorQueEscolher: React.FC = () => {
         .pillar-card {
           padding: 2.5rem 2rem;
           text-align: center;
-          transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+          transition: transform 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease;
           border-color: rgba(255, 255, 255, 0.04);
-        }
-
-        .pillar-card:hover {
-          transform: translateY(-5px);
-          border-color: rgba(212, 175, 55, 0.3);
-          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
         }
 
         .pillar-icon-wrapper {
           width: 70px;
           height: 70px;
           margin: 0 auto 1.5rem auto;
-          background: rgba(212, 175, 55, 0.05);
+          background: rgba(232, 200, 106, 0.08);
           border-radius: 50%;
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 1px solid rgba(212, 175, 55, 0.15);
-          transition: all 0.3s ease;
+          border: 1px solid rgba(232, 200, 106, 0.2);
+          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .pillar-card:hover .pillar-icon-wrapper {
-          background: var(--gold);
-          box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+          background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+          box-shadow: 0 10px 25px rgba(232, 200, 106, 0.4);
+          transform: scale(1.1) rotate(5deg);
         }
 
         .pillar-card:hover .pillar-icon-wrapper svg {
@@ -334,12 +371,17 @@ export const PorQueEscolher: React.FC = () => {
           font-weight: 700;
           color: var(--white);
           margin-bottom: 1rem;
+          transition: color 0.3s ease;
+        }
+
+        .pillar-card:hover .pillar-title {
+          color: var(--gold);
         }
 
         .pillar-desc {
           font-size: 0.9rem;
           color: var(--text-secondary);
-          line-height: 1.5;
+          line-height: 1.6;
         }
 
         /* Split Layout Styles */
@@ -352,7 +394,7 @@ export const PorQueEscolher: React.FC = () => {
 
         .column-title {
           font-size: 1.75rem;
-          font-weight: 600;
+          font-weight: 700;
           color: var(--white);
         }
 
@@ -382,14 +424,21 @@ export const PorQueEscolher: React.FC = () => {
           border-radius: 50%;
           background: var(--navy-dark);
           border: 3px solid var(--gold);
-          box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
+          box-shadow: 0 0 15px rgba(232, 200, 106, 0.5);
           z-index: 2;
+          transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+          background: var(--gold);
+          box-shadow: 0 0 20px rgba(232, 200, 106, 0.7);
+          transform: scale(1.3);
         }
 
         .timeline-line {
           width: 2px;
           flex-grow: 1;
-          background: linear-gradient(to bottom, var(--gold) 0%, rgba(212, 175, 55, 0.1) 100%);
+          background: linear-gradient(to bottom, var(--gold) 0%, rgba(232, 200, 106, 0.1) 100%);
           margin-top: 4px;
           z-index: 1;
         }
@@ -402,14 +451,14 @@ export const PorQueEscolher: React.FC = () => {
         .timeline-year {
           font-family: var(--font-headings);
           font-weight: 800;
-          font-size: 1.1rem;
+          font-size: 1.15rem;
           display: block;
           margin-bottom: 0.25rem;
         }
 
         .timeline-title {
           font-size: 1.25rem;
-          font-weight: 600;
+          font-weight: 700;
           color: var(--white);
           margin-bottom: 0.5rem;
         }
@@ -417,7 +466,7 @@ export const PorQueEscolher: React.FC = () => {
         .timeline-desc {
           font-size: 0.95rem;
           color: var(--text-secondary);
-          line-height: 1.5;
+          line-height: 1.6;
         }
 
         /* Dashboard Styles */
@@ -433,7 +482,7 @@ export const PorQueEscolher: React.FC = () => {
           position: relative;
           background: rgba(255, 255, 255, 0.02);
           border-color: rgba(255, 255, 255, 0.03);
-          transition: all 0.3s ease;
+          transition: all 0.4s ease;
         }
 
         .dash-card-header {
@@ -448,7 +497,13 @@ export const PorQueEscolher: React.FC = () => {
           height: 8px;
           border-radius: 50%;
           background: var(--gold);
-          box-shadow: 0 0 8px var(--gold);
+          box-shadow: 0 0 12px var(--gold);
+          animation: glow-pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes glow-pulse {
+          0%, 100% { box-shadow: 0 0 8px var(--gold); opacity: 1; }
+          50% { box-shadow: 0 0 20px var(--gold); opacity: 0.6; }
         }
 
         .dash-value {
@@ -464,7 +519,7 @@ export const PorQueEscolher: React.FC = () => {
         .dash-label {
           font-family: var(--font-headings);
           font-size: 1.1rem;
-          font-weight: 600;
+          font-weight: 700;
           color: var(--gold);
           margin-bottom: 0.5rem;
         }
@@ -472,7 +527,7 @@ export const PorQueEscolher: React.FC = () => {
         .dash-subtext {
           font-size: 0.85rem;
           color: var(--text-secondary);
-          line-height: 1.4;
+          line-height: 1.5;
         }
 
         @media (max-width: 1200px) {

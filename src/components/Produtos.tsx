@@ -84,6 +84,22 @@ export const Produtos: React.FC = () => {
     return `https://wa.me/${whatsappNumber}?text=${message}`;
   };
 
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30, scale: 0.95 },
+    visible: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.5, ease: "easeOut" as const } }
+  };
+
   return (
     <section id="solucoes" className="section" style={{ background: 'var(--navy-dark)' }}>
       <div className="container">
@@ -98,30 +114,34 @@ export const Produtos: React.FC = () => {
         {/* Filter Navigation */}
         <div className="filters-container">
           {categories.map((cat) => (
-            <button
+            <motion.button
               key={cat.id}
               onClick={() => setActiveFilter(cat.id)}
               className={`filter-btn ${activeFilter === cat.id ? 'active' : ''}`}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
             >
               {cat.label}
-            </button>
+            </motion.button>
           ))}
         </div>
 
         {/* Products Grid */}
         <motion.div 
           className="products-grid"
-          layout
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-50px" }}
         >
           <AnimatePresence mode="popLayout">
             {filteredProducts.map((product) => (
               <motion.div
                 key={product.id}
                 layout
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.9 }}
-                transition={{ duration: 0.4 }}
+                variants={itemVariants}
+                exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+                whileHover={{ y: -10, transition: { duration: 0.3 } }}
                 className="glass-panel product-card"
               >
                 {/* Image Container */}
@@ -183,16 +203,16 @@ export const Produtos: React.FC = () => {
 
         .filter-btn:hover {
           color: var(--white);
-          border-color: rgba(212, 175, 55, 0.3);
+          border-color: rgba(232, 200, 106, 0.4);
           background: rgba(255, 255, 255, 0.05);
         }
 
         .filter-btn.active {
-          background: var(--gold);
+          background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
           color: var(--navy-dark);
-          border-color: var(--gold);
-          font-weight: 600;
-          box-shadow: 0 4px 15px rgba(212, 175, 55, 0.25);
+          border-color: transparent;
+          font-weight: 700;
+          box-shadow: 0 4px 20px rgba(232, 200, 106, 0.4);
         }
 
         .products-grid {
@@ -212,7 +232,7 @@ export const Produtos: React.FC = () => {
 
         .product-card:hover {
           border-color: var(--gold);
-          box-shadow: var(--shadow-gold), var(--shadow-md);
+          box-shadow: 0 15px 40px rgba(232, 200, 106, 0.15);
         }
 
         .product-image-wrapper {
@@ -226,11 +246,11 @@ export const Produtos: React.FC = () => {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .product-card:hover .product-image {
-          transform: scale(1.1);
+          transform: scale(1.15) rotate(1deg);
         }
 
         .product-overlay-gold {
@@ -239,7 +259,7 @@ export const Produtos: React.FC = () => {
           left: 0;
           width: 100%;
           height: 100%;
-          background: linear-gradient(180deg, transparent 40%, rgba(10, 31, 68, 0.95) 100%);
+          background: linear-gradient(180deg, transparent 20%, rgba(6, 16, 34, 0.95) 100%);
           z-index: 1;
         }
 
@@ -253,7 +273,7 @@ export const Produtos: React.FC = () => {
 
         .product-title {
           font-size: 1.25rem;
-          font-weight: 600;
+          font-weight: 700;
           margin-bottom: 0.75rem;
           color: var(--white);
           transition: color 0.3s ease;
@@ -267,7 +287,7 @@ export const Produtos: React.FC = () => {
           font-size: 0.9rem;
           color: var(--text-secondary);
           margin-bottom: 1.25rem;
-          line-height: 1.5;
+          line-height: 1.6;
           flex-grow: 1;
         }
 
@@ -280,11 +300,18 @@ export const Produtos: React.FC = () => {
 
         .product-tag {
           font-size: 0.75rem;
-          padding: 0.25rem 0.5rem;
+          font-weight: 600;
+          padding: 0.35rem 0.6rem;
           border-radius: 4px;
-          background: rgba(255, 255, 255, 0.05);
+          background: rgba(255, 255, 255, 0.03);
           color: var(--text-secondary);
           border: 1px solid rgba(255, 255, 255, 0.05);
+          transition: all 0.3s ease;
+        }
+        
+        .product-card:hover .product-tag {
+          border-color: rgba(232, 200, 106, 0.3);
+          color: var(--white);
         }
 
         .product-cta-btn {
@@ -294,21 +321,21 @@ export const Produtos: React.FC = () => {
           gap: 0.5rem;
           padding: 0.75rem 1rem;
           border-radius: 6px;
-          border: 1px solid rgba(212, 175, 55, 0.3);
+          border: 1px solid rgba(232, 200, 106, 0.3);
           background: transparent;
           color: var(--gold);
-          font-weight: 600;
+          font-weight: 700;
           font-size: 0.9rem;
           font-family: var(--font-headings);
           cursor: pointer;
-          transition: all 0.3s ease;
+          transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .product-card:hover .product-cta-btn {
-          background: var(--gold);
+          background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
           color: var(--navy-dark);
-          border-color: var(--gold);
-          box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3);
+          border-color: transparent;
+          box-shadow: 0 4px 15px rgba(232, 200, 106, 0.4);
         }
 
         @media (max-width: 1200px) {

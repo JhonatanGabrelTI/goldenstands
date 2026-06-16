@@ -76,8 +76,21 @@ export const Galeria: React.FC = () => {
     }
   ];
 
+  const gridVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2 }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 50, scale: 0.9 },
+    show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, stiffness: 100, damping: 20 } }
+  };
+
   return (
-    <section id="portfolio" className="section" style={{ background: 'linear-gradient(180deg, var(--navy-dark) 0%, var(--navy) 100%)' }}>
+    <section id="portfolio" className="section" style={{ background: 'linear-gradient(180deg, var(--navy-dark) 0%, var(--navy-light) 100%)' }}>
       <div className="container">
         
         {/* Header */}
@@ -88,17 +101,21 @@ export const Galeria: React.FC = () => {
         </div>
 
         {/* Pinterest Style Grid */}
-        <div className="gallery-masonry-grid">
+        <motion.div 
+          className="gallery-masonry-grid"
+          variants={gridVariants}
+          initial="hidden"
+          whileInView="show"
+          viewport={{ once: true, margin: "-50px" }}
+        >
           {galleryItems.map((item) => (
             <motion.div
               key={item.id}
               className={`gallery-item-card size-${item.size}`}
               onClick={() => setSelectedItem(item)}
-              whileHover={{ y: -6 }}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, ease: "easeOut" }}
+              variants={itemVariants}
+              whileHover={{ y: -10, scale: 1.02 }}
+              transition={{ duration: 0.3 }}
             >
               <img src={item.image} alt={item.title} className="gallery-card-img" />
               
@@ -114,7 +131,7 @@ export const Galeria: React.FC = () => {
               </div>
             </motion.div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Modal Lightbox */}
         <AnimatePresence>
@@ -127,9 +144,9 @@ export const Galeria: React.FC = () => {
               onClick={() => setSelectedItem(null)}
             >
               <motion.div
-                initial={{ scale: 0.9, y: 20 }}
-                animate={{ scale: 1, y: 0 }}
-                exit={{ scale: 0.9, y: 20 }}
+                initial={{ scale: 0.9, y: 50, opacity: 0 }}
+                animate={{ scale: 1, y: 0, opacity: 1 }}
+                exit={{ scale: 0.9, y: 50, opacity: 0 }}
                 transition={{ type: "spring", damping: 25, stiffness: 300 }}
                 className="gallery-modal-content glass-panel"
                 onClick={(e) => e.stopPropagation()}
@@ -146,22 +163,24 @@ export const Galeria: React.FC = () => {
                   </div>
                   <div className="modal-details">
                     <span className="badge" style={{ marginBottom: '1rem' }}>{selectedItem.category}</span>
-                    <h3 className="modal-title" style={{ fontSize: '1.75rem', marginBottom: '1rem', color: 'var(--white)' }}>
+                    <h3 className="modal-title" style={{ fontSize: '2rem', marginBottom: '1rem', color: 'var(--white)' }}>
                       {selectedItem.title}
                     </h3>
-                    <p className="modal-desc" style={{ fontSize: '1rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '2rem' }}>
+                    <p className="modal-desc" style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '2.5rem' }}>
                       {selectedItem.description}
                     </p>
                     
-                    <a
+                    <motion.a
                       href={`https://wa.me/5543998420048?text=${encodeURIComponent(`Olá! Vi o projeto "${selectedItem.title}" no portfólio da Gold Arquitetura e gostaria de solicitar um projeto similar.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
                       className="btn btn-primary"
                       style={{ width: '100%' }}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.98 }}
                     >
                       Solicitar Projeto Similar
-                    </a>
+                    </motion.a>
                   </div>
                 </div>
               </motion.div>
@@ -183,34 +202,40 @@ export const Galeria: React.FC = () => {
           break-inside: avoid;
           margin-bottom: 1.5rem;
           position: relative;
-          border-radius: 12px;
+          border-radius: 16px;
           overflow: hidden;
           cursor: pointer;
           border: 1px solid rgba(255, 255, 255, 0.05);
           background-color: var(--navy-light);
           display: block;
+          box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .gallery-item-card:hover {
+          border-color: rgba(232, 200, 106, 0.3);
+          box-shadow: 0 15px 40px rgba(232, 200, 106, 0.15);
         }
 
         /* Set heights depending on size prop */
         .size-small {
-          height: 200px;
+          height: 250px;
         }
         .size-medium {
-          height: 300px;
+          height: 350px;
         }
         .size-large {
-          height: 420px;
+          height: 480px;
         }
 
         .gallery-card-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
         .gallery-item-card:hover .gallery-card-img {
-          transform: scale(1.08);
+          transform: scale(1.1) rotate(1deg);
         }
 
         /* Overlay */
@@ -220,13 +245,13 @@ export const Galeria: React.FC = () => {
           left: 0;
           width: 100%;
           height: 100%;
-          background: linear-gradient(to top, rgba(10, 31, 68, 0.9) 0%, rgba(10, 31, 68, 0.2) 60%, transparent 100%);
+          background: linear-gradient(to top, rgba(6, 16, 34, 0.95) 0%, rgba(6, 16, 34, 0.3) 50%, transparent 100%);
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-          padding: 1.5rem;
+          padding: 2rem;
           opacity: 0;
-          transition: opacity 0.3s ease;
+          transition: opacity 0.4s ease;
           z-index: 1;
         }
 
@@ -236,32 +261,50 @@ export const Galeria: React.FC = () => {
 
         .zoom-icon-wrapper {
           align-self: flex-end;
-          padding: 0.5rem;
+          padding: 0.75rem;
           border-radius: 50%;
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(5px);
+          background: rgba(232, 200, 106, 0.1);
+          backdrop-filter: blur(8px);
           display: flex;
           align-items: center;
           justify-content: center;
+          border: 1px solid rgba(232, 200, 106, 0.3);
+          transform: translateY(-20px);
+          opacity: 0;
+          transition: all 0.4s ease;
+        }
+
+        .gallery-item-card:hover .zoom-icon-wrapper {
+          transform: translateY(0);
+          opacity: 1;
         }
 
         .gallery-card-info {
           text-align: left;
+          transform: translateY(20px);
+          opacity: 0;
+          transition: all 0.4s ease;
+        }
+
+        .gallery-item-card:hover .gallery-card-info {
+          transform: translateY(0);
+          opacity: 1;
         }
 
         .gallery-card-cat {
-          font-size: 0.75rem;
+          font-size: 0.8rem;
           color: var(--gold);
           text-transform: uppercase;
-          font-weight: 700;
-          letter-spacing: 1px;
+          font-weight: 800;
+          letter-spacing: 1.5px;
           display: block;
-          margin-bottom: 0.25rem;
+          margin-bottom: 0.5rem;
         }
 
         .gallery-card-title {
-          font-size: 1.1rem;
-          font-weight: 600;
+          font-size: 1.25rem;
+          font-family: var(--font-headings);
+          font-weight: 700;
           color: var(--white);
         }
 
@@ -272,8 +315,8 @@ export const Galeria: React.FC = () => {
           left: 0;
           right: 0;
           bottom: 0;
-          background-color: rgba(5, 18, 41, 0.85);
-          backdrop-filter: blur(8px);
+          background-color: rgba(3, 8, 17, 0.9);
+          backdrop-filter: blur(12px);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -282,23 +325,25 @@ export const Galeria: React.FC = () => {
         }
 
         .gallery-modal-content {
-          max-width: 960px;
+          max-width: 1000px;
           width: 100%;
           position: relative;
           background: var(--navy-dark);
-          border-color: rgba(212, 175, 55, 0.2);
+          border-color: rgba(232, 200, 106, 0.2);
           overflow: hidden;
           padding: 0;
+          border-radius: 20px;
+          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
         }
 
         .modal-close-btn {
           position: absolute;
-          top: 1rem;
-          right: 1rem;
-          width: 40px;
-          height: 40px;
+          top: 1.5rem;
+          right: 1.5rem;
+          width: 44px;
+          height: 44px;
           border-radius: 50%;
-          background: rgba(0, 0, 0, 0.5);
+          background: rgba(0, 0, 0, 0.6);
           border: 1px solid rgba(255, 255, 255, 0.1);
           color: var(--white);
           display: flex;
@@ -312,15 +357,16 @@ export const Galeria: React.FC = () => {
         .modal-close-btn:hover {
           background: var(--gold);
           color: var(--navy-dark);
+          transform: rotate(90deg);
         }
 
         .modal-inner-grid {
           display: grid;
-          grid-template-columns: 1.2fr 1fr;
+          grid-template-columns: 1.3fr 1fr;
         }
 
         .modal-img-container {
-          height: 450px;
+          height: 500px;
           width: 100%;
           overflow: hidden;
         }
@@ -332,7 +378,7 @@ export const Galeria: React.FC = () => {
         }
 
         .modal-details {
-          padding: 3rem 2.5rem;
+          padding: 3rem;
           display: flex;
           flex-direction: column;
           justify-content: center;
@@ -347,10 +393,10 @@ export const Galeria: React.FC = () => {
             grid-template-columns: 1fr;
           }
           .modal-img-container {
-            height: 300px;
+            height: 350px;
           }
           .modal-details {
-            padding: 2rem 1.5rem;
+            padding: 2rem;
           }
         }
 

@@ -149,24 +149,24 @@ export const Footer: React.FC = () => {
         }
 
         .social-icon-btn {
-          width: 40px;
-          height: 40px;
+          width: 42px;
+          height: 42px;
           border-radius: 50%;
           background: rgba(255, 255, 255, 0.03);
-          border: 1px solid rgba(255, 255, 255, 0.06);
+          border: 1px solid rgba(255, 255, 255, 0.08);
           color: var(--white);
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.3s ease;
+          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
         .social-icon-btn:hover {
-          background: var(--gold);
+          background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
           color: var(--navy-dark);
-          border-color: var(--gold);
-          transform: translateY(-2px);
-          box-shadow: var(--shadow-gold);
+          border-color: transparent;
+          transform: translateY(-4px) scale(1.1);
+          box-shadow: 0 8px 20px rgba(232, 200, 106, 0.4);
         }
 
         .footer-title {
@@ -202,7 +202,7 @@ export const Footer: React.FC = () => {
 
         .footer-links-list a:hover {
           color: var(--gold);
-          padding-left: 5px;
+          padding-left: 8px;
         }
 
         .contacts-list {

@@ -11,11 +11,11 @@ export const Hero: React.FC = () => {
 
   // Parallax effects
   const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
   // Generate floating particle elements
-  const particles = Array.from({ length: 20 }, (_, i) => ({
+  const particles = Array.from({ length: 25 }, (_, i) => ({
     id: i,
     size: Math.random() * 6 + 2,
     x: Math.random() * 100,
@@ -27,6 +27,23 @@ export const Hero: React.FC = () => {
   const whatsappNumber = "5543998420048";
   const quoteMessage = encodeURIComponent("Olá! Estou no site da Gold Arquitetura e gostaria de solicitar um projeto para estande ou cenografia.");
   const chatMessage = encodeURIComponent("Olá! Gostaria de conversar com um arquiteto da Gold sobre um projeto de estande ou cenografia.");
+
+  // Animation variants
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3
+      }
+    }
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } }
+  };
 
   return (
     <section 
@@ -49,8 +66,8 @@ export const Hero: React.FC = () => {
           top: 0,
           left: 0,
           width: '100%',
-          height: '120%', // Make it taller for scroll room
-          backgroundImage: 'linear-gradient(to bottom, rgba(10, 31, 68, 0.7) 0%, rgba(5, 18, 41, 0.95) 100%), url("https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop")',
+          height: '120%', 
+          backgroundImage: 'linear-gradient(to bottom, rgba(6, 16, 34, 0.6) 0%, rgba(3, 8, 17, 0.95) 100%), url("https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           y: bgY,
@@ -79,7 +96,7 @@ export const Hero: React.FC = () => {
               width: particle.size,
               height: particle.size,
               borderRadius: '50%',
-              backgroundColor: 'rgba(212, 175, 55, 0.3)',
+              backgroundColor: 'rgba(232, 200, 106, 0.3)',
               left: `${particle.x}%`,
               top: `${particle.y}%`,
             }}
@@ -109,57 +126,74 @@ export const Hero: React.FC = () => {
       >
         <motion.div
           style={{ y: textY, opacity }}
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
         >
           {/* Badge */}
           <motion.div 
             className="badge"
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
+            variants={itemVariants}
           >
             ✦ Design & Cenografia de Alto Impacto
           </motion.div>
 
           {/* Heading */}
-          <h1 
+          <motion.h1 
+            variants={itemVariants}
             style={{ 
               fontWeight: 800, 
               textTransform: 'uppercase', 
-              maxWidth: '850px',
+              maxWidth: '900px',
               lineHeight: 1.1,
               marginBottom: '1.5rem',
-              textShadow: '0 4px 20px rgba(0,0,0,0.4)'
+              textShadow: '0 10px 30px rgba(0,0,0,0.5)',
+              letterSpacing: '-1px'
             }}
           >
             Referência Nacional em Arquitetura Promocional e <span className="text-gold" style={{ display: 'inline-block' }}>Cenografia</span>
-          </h1>
+          </motion.h1>
 
           {/* Subtitle */}
-          <p 
+          <motion.p 
+            variants={itemVariants}
             style={{ 
               fontSize: '1.25rem', 
               maxWidth: '650px', 
               color: 'var(--text-secondary)',
-              marginBottom: '2.5rem',
+              marginBottom: '3rem',
               lineHeight: 1.6,
-              textShadow: '0 2px 10px rgba(0,0,0,0.3)'
+              textShadow: '0 4px 15px rgba(0,0,0,0.4)'
             }}
           >
             Criamos experiências memoráveis para feiras e eventos corporativos. Estandes sob medida, cenografia impactante e montagem turnkey em todo o Brasil.
-          </p>
+          </motion.p>
 
           {/* Call-to-actions */}
-          <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem' }}>
+          <motion.div 
+            variants={itemVariants}
+            style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem' }}
+          >
             <motion.a 
               href={`https://wa.me/${whatsappNumber}?text=${quoteMessage}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ 
+                scale: 1.05,
+                boxShadow: "0 15px 35px rgba(232, 200, 106, 0.4)"
+              }}
               whileTap={{ scale: 0.98 }}
+              animate={{
+                boxShadow: ["0 0 0 rgba(232, 200, 106, 0)", "0 0 20px rgba(232, 200, 106, 0.3)", "0 0 0 rgba(232, 200, 106, 0)"]
+              }}
+              transition={{
+                boxShadow: {
+                  duration: 2,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }
+              }}
             >
               Solicitar Projeto <ArrowRight size={18} />
             </motion.a>
@@ -169,12 +203,12 @@ export const Hero: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"
-              whileHover={{ scale: 1.05 }}
+              whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
               whileTap={{ scale: 0.98 }}
             >
               <Phone size={18} /> Falar no WhatsApp
             </motion.a>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
@@ -185,7 +219,7 @@ export const Hero: React.FC = () => {
           bottom: 0,
           left: 0,
           right: 0,
-          height: '100px',
+          height: '150px',
           background: 'linear-gradient(to top, var(--navy-dark) 0%, transparent 100%)',
           zIndex: 4,
           pointerEvents: 'none'
