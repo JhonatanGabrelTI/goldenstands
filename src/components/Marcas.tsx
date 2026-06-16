@@ -9,68 +9,104 @@ interface Brand {
 export const Marcas: React.FC = () => {
   const brands: Brand[] = [
     {
-      name: "Google",
-      logo: (
-        <span className="brand-logo-text bold-font">
-          Google
-        </span>
-      )
+      name: "Blystersul",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#4CAF50'}}>Blyster<span style={{color: '#FFC107'}}>sul</span></span>
     },
     {
-      name: "Samsung",
-      logo: (
-        <span className="brand-logo-text bold-font">
-          SAMSUNG
-        </span>
-      )
+      name: "FairFeed",
+      logo: <span className="brand-logo-text bold-font">Fair<span style={{color: '#FF5722'}}>Feed</span></span>
     },
     {
-      name: "Audi",
-      logo: (
-        <span className="brand-logo-text bold-font" style={{ letterSpacing: '3px' }}>
-          AUDI
-        </span>
-      )
+      name: "MTech Systems",
+      logo: <span className="brand-logo-text" style={{color: '#03A9F4'}}><span className="bold-font">MTech</span> Systems</span>
     },
     {
-      name: "L'Oréal",
-      logo: (
-        <span className="brand-logo-text" style={{ fontStyle: 'italic', fontWeight: 800 }}>
-          L'OR<span style={{ color: 'var(--gold)' }}>ÉAL</span>
-        </span>
-      )
+      name: "Sanko",
+      logo: <span className="brand-logo-text bold-font" style={{color: 'var(--gold)'}}>SANKO</span>
     },
     {
-      name: "Coca-Cola",
-      logo: (
-        <span className="brand-logo-text" style={{ fontStyle: 'italic', fontWeight: 900 }}>
-          Coca-<span style={{ color: 'var(--gold)' }}>Cola</span>
-        </span>
-      )
+      name: "Sankonfort",
+      logo: <span className="brand-logo-text" style={{color: 'var(--gold)', letterSpacing: '1px'}}>SANKONFORT</span>
     },
     {
-      name: "Nike",
-      logo: (
-        <span className="brand-logo-text bold-font" style={{ letterSpacing: '2px' }}>
-          NIKE
-        </span>
-      )
+      name: "Cargill",
+      logo: <span className="brand-logo-text bold-font" style={{fontStyle: 'italic'}}>Cargill</span>
     },
     {
-      name: "BMW",
-      logo: (
-        <span className="brand-logo-text bold-font">
-          BMW
-        </span>
-      )
+      name: "DSM",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#2196F3'}}>DSM</span>
     },
     {
-      name: "Microsoft",
-      logo: (
-        <span className="brand-logo-text">
-          Microsoft
-        </span>
-      )
+      name: "Biocamp",
+      logo: <span className="brand-logo-text" style={{color: '#4CAF50'}}>biocamp</span>
+    },
+    {
+      name: "Continental",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#FF9800'}}>Continental</span>
+    },
+    {
+      name: "Artabas",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#F44336'}}>ARTABAS</span>
+    },
+    {
+      name: "Embrapa",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#1565C0'}}>Embrapa</span>
+    },
+    {
+      name: "FMC",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#D32F2F'}}>FMC</span>
+    },
+    {
+      name: "Mosaic",
+      logo: <span className="brand-logo-text bold-font">Mosaic</span>
+    },
+    {
+      name: "Magnojet",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#1976D2'}}>MagnoJet</span>
+    },
+    {
+      name: "Sumitomo Chemical",
+      logo: <span className="brand-logo-text">SUMITOMO CHEMICAL</span>
+    },
+    {
+      name: "Vaccinar",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#D32F2F'}}>Vaccinar</span>
+    },
+    {
+      name: "AVANT",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#D32F2F', fontStyle: 'italic'}}>AVANT</span>
+    },
+    {
+      name: "FORSEED",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#00796B'}}>FORSEED</span>
+    },
+    {
+      name: "Matsuda",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#D32F2F'}}>MATSUDA</span>
+    },
+    {
+      name: "AGI Brasil",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#388E3C'}}>AGI BRASIL</span>
+    },
+    {
+      name: "KILBRA",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#1A237E'}}>KILBRA</span>
+    },
+    {
+      name: "HTMG",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#0277BD'}}>HTMG</span>
+    },
+    {
+      name: "tecnomyl",
+      logo: <span className="brand-logo-text bold-font">tecnomyl</span>
+    },
+    {
+      name: "Rovensa Next",
+      logo: <span className="brand-logo-text bold-font" style={{color: '#2E7D32'}}>Rovensa Next</span>
+    },
+    {
+      name: "Zion",
+      logo: <span className="brand-logo-text" style={{color: '#FBC02D', letterSpacing: '2px'}}>ZION</span>
     }
   ];
 
