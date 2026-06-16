@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { motion, useInView, animate } from 'framer-motion';
-import { ShieldCheck, Award, Zap, HeartHandshake } from 'lucide-react';
+import { ShieldCheck, Award, Zap, HeartHandshake, Users, Target } from 'lucide-react';
 
 interface StatCounterProps {
   from: number;
@@ -31,6 +31,29 @@ const StatCounter: React.FC<StatCounterProps> = ({ from, to, suffix = "", prefix
 };
 
 export const PorQueEscolher: React.FC = () => {
+  const pilares = [
+    {
+      icon: <Target size={28} className="text-gold" />,
+      title: "Foco no Cliente",
+      desc: "Nossos clientes são a razão da nossa existência. Nos comprometemos a atender suas demandas no local e prazo necessários."
+    },
+    {
+      icon: <ShieldCheck size={28} className="text-gold" />,
+      title: "Segurança",
+      desc: "Somos rigorosos no cumprimento dos nossos padrões, prezando pela segurança dos nossos clientes e colaboradores."
+    },
+    {
+      icon: <Award size={28} className="text-gold" />,
+      title: "Resultados com Qualidade",
+      desc: "Buscamos maximizar os resultados, valorizando a qualidade em cada detalhe de nossa operação."
+    },
+    {
+      icon: <Users size={28} className="text-gold" />,
+      title: "Trabalho em Equipe",
+      desc: "Juntos alcançamos nossos objetivos, confiamos uns nos outros, compartilhando conquistas e resultados."
+    }
+  ];
+
   const milestones = [
     {
       year: "2004",
@@ -59,10 +82,51 @@ export const PorQueEscolher: React.FC = () => {
       <div className="container">
         
         {/* Header */}
-        <div className="section-header text-center">
+        <div className="section-header text-center" style={{ marginBottom: '3rem' }}>
           <span className="badge">Diferenciação</span>
           <h2>Por que Escolher a <span className="text-gold">Gold</span>?</h2>
-          <p>Aliamos criatividade, engenharia e gestão para transformar cada projeto em uma experiência de marca inesquecível.</p>
+        </div>
+
+        {/* Intro Banner */}
+        <motion.div 
+          className="intro-banner glass-panel"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+        >
+          <div className="intro-content">
+            <h3 className="intro-title">Nossa <span className="text-gold">Filosofia</span></h3>
+            <p className="intro-lead">
+              Somos uma empresa voltada a levar a marca do cliente com qualidade, segurança e cada vez mais moderna.
+            </p>
+            <p className="intro-text">
+              A GOLD preza pela qualidade de seus processos e materiais. Reconhecida por este aspecto, tem trazido para seu atendimento diversos clientes que estiveram por muitos anos com outras empresas de Arquitetura Promocional do país e agora são clientes permanentes da nossa empresa.
+            </p>
+            <p className="intro-text" style={{ marginBottom: 0 }}>
+              Além dos melhores produtos, trabalhamos de forma objetiva e eficiente, com integridade e senso de urgência para gerar os melhores serviços. Confira alguns dos pilares de nossa empresa:
+            </p>
+          </div>
+        </motion.div>
+
+        {/* Pillars Grid */}
+        <div className="pillars-grid">
+          {pilares.map((pilar, idx) => (
+            <motion.div 
+              key={idx}
+              className="pillar-card glass-panel"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.1 }}
+            >
+              <div className="pillar-icon-wrapper">
+                {pilar.icon}
+              </div>
+              <h4 className="pillar-title">{pilar.title}</h4>
+              <p className="pillar-desc">{pilar.desc}</p>
+            </motion.div>
+          ))}
         </div>
 
         <div className="split-layout">
@@ -191,6 +255,94 @@ export const PorQueEscolher: React.FC = () => {
       </div>
 
       <style>{`
+        /* Intro Banner & Pillars Layout */
+        .intro-banner {
+          padding: 3.5rem;
+          margin-bottom: 3rem;
+          border-left: 4px solid var(--gold);
+          background: rgba(255, 255, 255, 0.02);
+          text-align: left;
+        }
+
+        .intro-title {
+          font-family: var(--font-headings);
+          font-size: 2rem;
+          font-weight: 700;
+          color: var(--white);
+          margin-bottom: 1.5rem;
+        }
+
+        .intro-lead {
+          font-size: 1.25rem;
+          font-weight: 600;
+          color: var(--gold);
+          margin-bottom: 1.5rem;
+          line-height: 1.5;
+        }
+
+        .intro-text {
+          font-size: 1.05rem;
+          color: var(--text-secondary);
+          line-height: 1.7;
+          margin-bottom: 1.25rem;
+        }
+
+        .pillars-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 1.5rem;
+          margin-bottom: 5rem;
+        }
+
+        .pillar-card {
+          padding: 2.5rem 2rem;
+          text-align: center;
+          transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+          border-color: rgba(255, 255, 255, 0.04);
+        }
+
+        .pillar-card:hover {
+          transform: translateY(-5px);
+          border-color: rgba(212, 175, 55, 0.3);
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .pillar-icon-wrapper {
+          width: 70px;
+          height: 70px;
+          margin: 0 auto 1.5rem auto;
+          background: rgba(212, 175, 55, 0.05);
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid rgba(212, 175, 55, 0.15);
+          transition: all 0.3s ease;
+        }
+
+        .pillar-card:hover .pillar-icon-wrapper {
+          background: var(--gold);
+          box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
+        }
+
+        .pillar-card:hover .pillar-icon-wrapper svg {
+          color: var(--navy-dark) !important;
+        }
+
+        .pillar-title {
+          font-size: 1.2rem;
+          font-weight: 700;
+          color: var(--white);
+          margin-bottom: 1rem;
+        }
+
+        .pillar-desc {
+          font-size: 0.9rem;
+          color: var(--text-secondary);
+          line-height: 1.5;
+        }
+
+        /* Split Layout Styles */
         .split-layout {
           display: grid;
           grid-template-columns: 1.1fr 1fr;
@@ -323,7 +475,16 @@ export const PorQueEscolher: React.FC = () => {
           line-height: 1.4;
         }
 
+        @media (max-width: 1200px) {
+          .pillars-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+        }
+
         @media (max-width: 992px) {
+          .intro-banner {
+            padding: 2.5rem;
+          }
           .split-layout {
             grid-template-columns: 1fr;
             gap: 4rem;
@@ -331,6 +492,9 @@ export const PorQueEscolher: React.FC = () => {
         }
 
         @media (max-width: 576px) {
+          .pillars-grid {
+            grid-template-columns: 1fr;
+          }
           .dashboard-grid {
             grid-template-columns: 1fr;
           }
