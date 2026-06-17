@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ZoomIn } from 'lucide-react';
+import { X, ArrowRight } from 'lucide-react';
 
 interface GalleryItem {
   id: number;
@@ -8,7 +8,7 @@ interface GalleryItem {
   category: string;
   image: string;
   description: string;
-  size: 'small' | 'medium' | 'large'; // Denotes block dimensions for Pinterest-style layout
+  size: 'small' | 'medium' | 'large'; 
 }
 
 export const Galeria: React.FC = () => {
@@ -28,50 +28,50 @@ export const Galeria: React.FC = () => {
   const galleryItems: GalleryItem[] = [
     {
       id: 1,
-      title: "Estande Samsung - Expo Tech 2025",
+      title: "Samsung Expo Tech",
       category: "Estandes Construídos",
       image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=800&auto=format&fit=crop",
-      description: "Estande de 200m² com estrutura em aço e vidro, iluminação cenográfica LED e áreas interativas para demonstração de produtos.",
+      description: "Estrutura imponente de 200m² combinando aço escovado e vidro translúcido. A iluminação cenográfica LED direcionada cria pontos focais para as áreas de interação com os produtos da marca.",
       size: "large"
     },
     {
       id: 2,
-      title: "Cenografia Lançamento L'Oréal",
+      title: "L'Oréal Experience",
       category: "Cenografia",
       image: "https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=800&auto=format&fit=crop",
-      description: "Ambientação cenográfica imersiva para lançamento de linha de cosméticos, com projeção mapeada e elementos florais em escala.",
+      description: "Uma verdadeira obra de arte floral combinada com projeção mapeada de alta definição. Criamos uma jornada sensorial para o lançamento da nova linha premium.",
       size: "medium"
     },
     {
       id: 3,
-      title: "Showroom Corporativo Audi",
+      title: "Audi Exclusive",
       category: "Showroom",
       image: "https://images.unsplash.com/photo-1497366216548-37526070297c?q=80&w=800&auto=format&fit=crop",
-      description: "Showroom permanente com design minimalista, painéis retroiluminados e mobiliário exclusivo para exposição de veículos.",
+      description: "Minimalismo elevado à máxima potência. O showroom permanente utiliza painéis acústicos pretos e backlights para dar absoluto destaque às linhas dos veículos.",
       size: "small"
     },
     {
       id: 4,
-      title: "Quiosque Promocional Nike",
+      title: "Nike Lab",
       category: "PDV & Ativação",
       image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=800&auto=format&fit=crop",
-      description: "Quiosque de ativação de marca em shopping com estrutura modular, telas interativas e acabamento em aço escovado.",
+      description: "Quiosque de alto impacto visual utilizando malha metálica e telas curvas. O design industrial contrasta com o piso polido negro, criando uma atmosfera urbana.",
       size: "medium"
     },
     {
       id: 5,
-      title: "Estande Misto Google - Web Summit",
+      title: "Google Summit",
       category: "Estandes Mistos",
       image: "https://images.unsplash.com/photo-1591115765373-5207764f72e7?q=80&w=800&auto=format&fit=crop",
-      description: "Projeto misto combinando estrutura octanorm com elementos personalizados em MDF e impressão digital de alta resolução.",
+      description: "Projeto inteligente que une estrutura técnica oculta com marcenaria personalizada de precisão, mantendo a linguagem visual limpa e fluida da gigante tech.",
       size: "small"
     },
     {
       id: 6,
-      title: "Convenção Anual Grupo Boticário",
+      title: "Boticário Essence",
       category: "Cenografia",
       image: "https://images.unsplash.com/photo-1505373877841-8d25f7d46678?q=80&w=800&auto=format&fit=crop",
-      description: "Cenografia completa para convenção de 3.000 pessoas, incluindo palco principal, backdrop e ambientação temática de todos os espaços.",
+      description: "Cenografia de luxo para convenção de diretores, transformando um galpão frio em uma experiência intimista através de tecidos nobres e iluminação dramática.",
       size: "large"
     }
   ];
@@ -80,24 +80,57 @@ export const Galeria: React.FC = () => {
     hidden: { opacity: 0 },
     show: {
       opacity: 1,
-      transition: { staggerChildren: 0.2 }
+      transition: { staggerChildren: 0.15 }
     }
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 50, scale: 0.9 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { type: "spring" as const, stiffness: 100, damping: 20 } }
+    hidden: { opacity: 0, y: 50 },
+    show: { opacity: 1, y: 0, transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as const } }
   };
 
   return (
-    <section id="portfolio" className="section" style={{ background: 'linear-gradient(180deg, var(--navy-dark) 0%, var(--navy-light) 100%)' }}>
+    <section id="portfolio" className="section" style={{ background: 'var(--onyx-dark)' }}>
       <div className="container">
         
         {/* Header */}
-        <div className="section-header text-center">
-          <span className="badge">Portfólio</span>
-          <h2>Projetos e <span className="text-gold">Realizações</span></h2>
-          <p>Veja nossos estandes, cenografias e showrooms em ação nos maiores eventos e feiras do Brasil.</p>
+        <div className="section-header text-center" style={{ maxWidth: '900px', margin: '0 auto 6rem auto' }}>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            style={{ 
+              display: 'inline-block', 
+              borderBottom: '1px solid var(--gold)', 
+              paddingBottom: '0.5rem',
+              marginBottom: '2rem',
+              color: 'var(--gold)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.15em',
+              fontSize: '0.85rem'
+            }}
+          >
+            Nossa Galeria
+          </motion.div>
+          <motion.h2
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+            style={{ fontFamily: 'var(--font-headings)', fontWeight: 400 }}
+          >
+            Projetos <span className="text-gold" style={{ fontStyle: 'italic' }}>Notáveis</span>
+          </motion.h2>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-100px" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            style={{ fontSize: '1.15rem', maxWidth: '600px', margin: '1.5rem auto 0 auto' }}
+          >
+            Explore uma seleção restrita de nossas execuções de altíssimo padrão em feiras, shows e ambientes corporativos.
+          </motion.p>
         </div>
 
         {/* Pinterest Style Grid */}
@@ -111,22 +144,27 @@ export const Galeria: React.FC = () => {
           {galleryItems.map((item) => (
             <motion.div
               key={item.id}
-              className={`gallery-item-card size-${item.size}`}
+              className={`gallery-item-luxury size-${item.size}`}
               onClick={() => setSelectedItem(item)}
               variants={itemVariants}
-              whileHover={{ y: -10, scale: 1.02 }}
-              transition={{ duration: 0.3 }}
             >
-              <img src={item.image} alt={item.title} className="gallery-card-img" />
-              
-              {/* Overlay elements */}
-              <div className="gallery-card-overlay">
-                <div className="zoom-icon-wrapper">
-                  <ZoomIn size={24} className="text-gold" />
-                </div>
-                <div className="gallery-card-info">
-                  <span className="gallery-card-cat">{item.category}</span>
-                  <h4 className="gallery-card-title">{item.title}</h4>
+              <div className="gallery-img-wrapper img-reveal-wrapper">
+                <motion.div 
+                  className="img-reveal-overlay"
+                  initial={{ scaleY: 1 }}
+                  whileInView={{ scaleY: 0 }}
+                  viewport={{ once: true, margin: "-50px" }}
+                  transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1] }}
+                  style={{ transformOrigin: "bottom", background: "var(--onyx-dark)" }}
+                />
+                <img src={item.image} alt={item.title} className="gallery-card-img" />
+                
+                {/* Overlay details */}
+                <div className="gallery-card-overlay-luxury">
+                  <div className="gallery-card-info-luxury">
+                    <span className="gallery-card-cat-luxury">{item.category}</span>
+                    <h4 className="gallery-card-title-luxury">{item.title}</h4>
+                  </div>
                 </div>
               </div>
             </motion.div>
@@ -139,48 +177,71 @@ export const Galeria: React.FC = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: 0, transition: { duration: 0.4 } }}
+              transition={{ duration: 0.5 }}
               className="gallery-modal-overlay"
               onClick={() => setSelectedItem(null)}
             >
               <motion.div
-                initial={{ scale: 0.9, y: 50, opacity: 0 }}
-                animate={{ scale: 1, y: 0, opacity: 1 }}
-                exit={{ scale: 0.9, y: 50, opacity: 0 }}
-                transition={{ type: "spring", damping: 25, stiffness: 300 }}
-                className="gallery-modal-content glass-panel"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: 20 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] as const }}
+                className="gallery-modal-content"
                 onClick={(e) => e.stopPropagation()}
               >
                 {/* Close Button */}
-                <button className="modal-close-btn" onClick={() => setSelectedItem(null)} aria-label="Fechar modal">
-                  <X size={24} />
+                <button className="modal-close-btn" onClick={() => setSelectedItem(null)} aria-label="Fechar">
+                  <X size={28} strokeWidth={1} />
                 </button>
 
-                {/* Modal Grid */}
+                {/* Modal Layout */}
                 <div className="modal-inner-grid">
                   <div className="modal-img-container">
                     <img src={selectedItem.image} alt={selectedItem.title} className="modal-image" />
                   </div>
                   <div className="modal-details">
-                    <span className="badge" style={{ marginBottom: '1rem' }}>{selectedItem.category}</span>
-                    <h3 className="modal-title" style={{ fontSize: '2rem', marginBottom: '1rem', color: 'var(--white)' }}>
-                      {selectedItem.title}
-                    </h3>
-                    <p className="modal-desc" style={{ fontSize: '1.05rem', color: 'var(--text-secondary)', lineHeight: 1.6, marginBottom: '2.5rem' }}>
-                      {selectedItem.description}
-                    </p>
+                    <div style={{ marginBottom: '2rem' }}>
+                      <span style={{ 
+                        color: 'var(--gold-dark)', 
+                        textTransform: 'uppercase', 
+                        letterSpacing: '0.15em', 
+                        fontSize: '0.75rem',
+                        display: 'block',
+                        marginBottom: '1rem'
+                      }}>
+                        {selectedItem.category}
+                      </span>
+                      <h3 style={{ 
+                        fontFamily: 'var(--font-headings)', 
+                        fontSize: '2.5rem', 
+                        fontWeight: 400,
+                        color: 'var(--white)',
+                        lineHeight: 1.1,
+                        marginBottom: '1.5rem'
+                      }}>
+                        {selectedItem.title}
+                      </h3>
+                      <div style={{ width: '40px', height: '1px', background: 'var(--gold)', marginBottom: '2rem' }} />
+                      <p style={{ 
+                        fontSize: '1rem', 
+                        color: 'var(--text-secondary)', 
+                        lineHeight: 1.8, 
+                        fontWeight: 300 
+                      }}>
+                        {selectedItem.description}
+                      </p>
+                    </div>
                     
-                    <motion.a
-                      href={`https://wa.me/5543998420048?text=${encodeURIComponent(`Olá! Vi o projeto "${selectedItem.title}" no portfólio da Gold Arquitetura e gostaria de solicitar um projeto similar.`)}`}
+                    <a
+                      href={`https://wa.me/5543998420048?text=${encodeURIComponent(`Olá! Achei fascinante o projeto "${selectedItem.title}" e gostaria de discutir uma execução com esse nível de excelência.`)}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="btn btn-primary"
-                      style={{ width: '100%' }}
-                      whileHover={{ scale: 1.05 }}
-                      whileTap={{ scale: 0.98 }}
+                      className="btn btn-secondary"
+                      style={{ width: 'fit-content' }}
                     >
-                      Solicitar Projeto Similar
-                    </motion.a>
+                      Discutir Projeto <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
+                    </a>
                   </div>
                 </div>
               </motion.div>
@@ -194,129 +255,89 @@ export const Galeria: React.FC = () => {
         /* Masonry Grid Layout */
         .gallery-masonry-grid {
           column-count: 3;
-          column-gap: 1.5rem;
+          column-gap: 2rem;
           width: 100%;
         }
 
-        .gallery-item-card {
+        .gallery-item-luxury {
           break-inside: avoid;
-          margin-bottom: 1.5rem;
+          margin-bottom: 2rem;
           position: relative;
-          border-radius: 16px;
-          overflow: hidden;
           cursor: pointer;
-          border: 1px solid rgba(255, 255, 255, 0.05);
-          background-color: var(--navy-light);
           display: block;
-          box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
 
-        .gallery-item-card:hover {
-          border-color: rgba(232, 200, 106, 0.3);
-          box-shadow: 0 15px 40px rgba(232, 200, 106, 0.15);
+        .gallery-img-wrapper {
+          position: relative;
+          width: 100%;
+          height: 100%;
+          overflow: hidden;
         }
 
         /* Set heights depending on size prop */
-        .size-small {
-          height: 250px;
-        }
-        .size-medium {
-          height: 350px;
-        }
-        .size-large {
-          height: 480px;
-        }
+        .size-small .gallery-img-wrapper { height: 300px; }
+        .size-medium .gallery-img-wrapper { height: 420px; }
+        .size-large .gallery-img-wrapper { height: 550px; }
 
         .gallery-card-img {
           width: 100%;
           height: 100%;
           object-fit: cover;
-          transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+          transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1), filter 0.8s ease;
+          filter: brightness(0.85) grayscale(20%);
         }
 
-        .gallery-item-card:hover .gallery-card-img {
-          transform: scale(1.1) rotate(1deg);
+        .gallery-item-luxury:hover .gallery-card-img {
+          transform: scale(1.05);
+          filter: brightness(1) grayscale(0%);
         }
 
         /* Overlay */
-        .gallery-card-overlay {
+        .gallery-card-overlay-luxury {
           position: absolute;
-          top: 0;
+          bottom: 0;
           left: 0;
           width: 100%;
-          height: 100%;
-          background: linear-gradient(to top, rgba(6, 16, 34, 0.95) 0%, rgba(6, 16, 34, 0.3) 50%, transparent 100%);
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between;
-          padding: 2rem;
-          opacity: 0;
-          transition: opacity 0.4s ease;
-          z-index: 1;
-        }
-
-        .gallery-item-card:hover .gallery-card-overlay {
-          opacity: 1;
-        }
-
-        .zoom-icon-wrapper {
-          align-self: flex-end;
-          padding: 0.75rem;
-          border-radius: 50%;
-          background: rgba(232, 200, 106, 0.1);
-          backdrop-filter: blur(8px);
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          border: 1px solid rgba(232, 200, 106, 0.3);
-          transform: translateY(-20px);
-          opacity: 0;
-          transition: all 0.4s ease;
-        }
-
-        .gallery-item-card:hover .zoom-icon-wrapper {
-          transform: translateY(0);
-          opacity: 1;
-        }
-
-        .gallery-card-info {
-          text-align: left;
+          background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0) 100%);
+          padding: 3rem 2rem 2rem 2rem;
           transform: translateY(20px);
           opacity: 0;
-          transition: all 0.4s ease;
+          transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+          z-index: 2;
         }
 
-        .gallery-item-card:hover .gallery-card-info {
+        .gallery-item-luxury:hover .gallery-card-overlay-luxury {
           transform: translateY(0);
           opacity: 1;
         }
 
-        .gallery-card-cat {
-          font-size: 0.8rem;
+        .gallery-card-info-luxury {
+          text-align: left;
+        }
+
+        .gallery-card-cat-luxury {
+          font-size: 0.7rem;
           color: var(--gold);
           text-transform: uppercase;
-          font-weight: 800;
-          letter-spacing: 1.5px;
+          letter-spacing: 0.15em;
           display: block;
           margin-bottom: 0.5rem;
         }
 
-        .gallery-card-title {
-          font-size: 1.25rem;
+        .gallery-card-title-luxury {
+          font-size: 1.35rem;
           font-family: var(--font-headings);
-          font-weight: 700;
+          font-weight: 400;
           color: var(--white);
+          letter-spacing: 0.02em;
         }
 
         /* Lightbox Modal */
         .gallery-modal-overlay {
           position: fixed;
-          top: 0;
-          left: 0;
-          right: 0;
-          bottom: 0;
-          background-color: rgba(3, 8, 17, 0.9);
-          backdrop-filter: blur(12px);
+          top: 0; left: 0; right: 0; bottom: 0;
+          background-color: rgba(0, 0, 0, 0.95);
+          backdrop-filter: blur(10px);
           display: flex;
           align-items: center;
           justify-content: center;
@@ -325,48 +346,43 @@ export const Galeria: React.FC = () => {
         }
 
         .gallery-modal-content {
-          max-width: 1000px;
+          max-width: 1100px;
           width: 100%;
           position: relative;
-          background: var(--navy-dark);
-          border-color: rgba(232, 200, 106, 0.2);
+          background: var(--onyx);
+          border: 1px solid rgba(255, 255, 255, 0.05);
           overflow: hidden;
           padding: 0;
-          border-radius: 20px;
-          box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+          box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8);
         }
 
         .modal-close-btn {
           position: absolute;
           top: 1.5rem;
           right: 1.5rem;
-          width: 44px;
-          height: 44px;
-          border-radius: 50%;
-          background: rgba(0, 0, 0, 0.6);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-          color: var(--white);
+          background: transparent;
+          border: none;
+          color: var(--text-secondary);
           display: flex;
           align-items: center;
           justify-content: center;
           cursor: pointer;
           z-index: 10;
-          transition: all 0.3s ease;
+          transition: all 0.4s ease;
         }
 
         .modal-close-btn:hover {
-          background: var(--gold);
-          color: var(--navy-dark);
+          color: var(--white);
           transform: rotate(90deg);
         }
 
         .modal-inner-grid {
           display: grid;
-          grid-template-columns: 1.3fr 1fr;
+          grid-template-columns: 1.4fr 1fr;
         }
 
         .modal-img-container {
-          height: 500px;
+          height: 600px;
           width: 100%;
           overflow: hidden;
         }
@@ -378,14 +394,14 @@ export const Galeria: React.FC = () => {
         }
 
         .modal-details {
-          padding: 3rem;
+          padding: 4rem;
           display: flex;
           flex-direction: column;
           justify-content: center;
           text-align: left;
         }
 
-        @media (max-width: 992px) {
+        @media (max-width: 1024px) {
           .gallery-masonry-grid {
             column-count: 2;
           }
@@ -393,10 +409,10 @@ export const Galeria: React.FC = () => {
             grid-template-columns: 1fr;
           }
           .modal-img-container {
-            height: 350px;
+            height: 400px;
           }
           .modal-details {
-            padding: 2rem;
+            padding: 3rem;
           }
         }
 
@@ -406,6 +422,9 @@ export const Galeria: React.FC = () => {
           }
           .gallery-modal-overlay {
             padding: 1rem;
+          }
+          .modal-details {
+            padding: 2rem;
           }
         }
       `}</style>

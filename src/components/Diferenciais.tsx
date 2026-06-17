@@ -11,32 +11,32 @@ interface DiferencialItem {
 export const Diferenciais: React.FC = () => {
   const diferenciaisList: DiferencialItem[] = [
     {
-      icon: <Lightbulb className="diferencial-icon" size={32} />,
+      icon: <Lightbulb strokeWidth={1} size={36} />,
       title: "Design Inovador",
       description: "Projetos autorais com modelagem 3D fotorrealista. Criamos estandes que traduzem a identidade da sua marca em experiências visuais memoráveis."
     },
     {
-      icon: <Factory className="diferencial-icon" size={32} />,
+      icon: <Factory strokeWidth={1} size={36} />,
       title: "Produção Própria",
       description: "Serralheria, marcenaria, impressão digital e acabamento interno. Controle total da qualidade de cada detalhe do seu projeto."
     },
     {
-      icon: <Hammer className="diferencial-icon" size={32} />,
+      icon: <Hammer strokeWidth={1} size={36} />,
       title: "Montagem Turnkey",
       description: "Gerenciamento completo de ponta a ponta: do projeto à desmontagem, cuidamos de toda a logística e execução."
     },
     {
-      icon: <Clock className="diferencial-icon" size={32} />,
-      title: "Plantão 24h em Feira",
+      icon: <Clock strokeWidth={1} size={36} />,
+      title: "Plantão 24h",
       description: "Equipe técnica de plantão durante toda a montagem e nos dias do evento para resolver qualquer necessidade em tempo real."
     },
     {
-      icon: <Ruler className="diferencial-icon" size={32} />,
-      title: "Detalhamento Técnico",
-      description: "Projetos executivos em conformidade com normas de cada pavilhão e centro de convenções, evitando retrabalho e atrasos."
+      icon: <Ruler strokeWidth={1} size={36} />,
+      title: "Rigor Técnico",
+      description: "Projetos executivos em conformidade com normas de cada pavilhão e centro de convenções, evitando retrabalho."
     },
     {
-      icon: <Globe className="diferencial-icon" size={32} />,
+      icon: <Globe strokeWidth={1} size={36} />,
       title: "Atendimento Nacional",
       description: "Montamos em todos os principais centros de convenções e pavilhões de feiras do Brasil com a mesma excelência."
     }
@@ -52,45 +52,55 @@ export const Diferenciais: React.FC = () => {
   };
 
   const cardVariants = {
-    hidden: { opacity: 0, y: 40, scale: 0.95 },
+    hidden: { opacity: 0, y: 30 },
     visible: { 
       opacity: 1, 
       y: 0,
-      scale: 1,
-      transition: { duration: 0.7, ease: "easeOut" as const }
+      transition: { duration: 1, ease: [0.16, 1, 0.3, 1] as const }
     }
   };
 
   return (
-    <section id="diferenciais" className="section" style={{ background: 'linear-gradient(180deg, var(--navy-dark) 0%, var(--navy-light) 100%)' }}>
+    <section id="diferenciais" className="section" style={{ background: 'var(--onyx-dark)' }}>
       <div className="container">
         
         {/* Section Header */}
-        <div className="section-header text-center">
-          <motion.span 
-            className="badge"
+        <div className="section-header text-center" style={{ maxWidth: '900px', margin: '0 auto 7rem auto' }}>
+          <motion.div 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, ease: "easeOut" }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            style={{ 
+              display: 'inline-block', 
+              borderBottom: '1px solid var(--gold)', 
+              paddingBottom: '0.5rem',
+              marginBottom: '2rem',
+              color: 'var(--gold)',
+              textTransform: 'uppercase',
+              letterSpacing: '0.15em',
+              fontSize: '0.85rem'
+            }}
           >
-            Diferenciais
-          </motion.span>
+            A Diferença
+          </motion.div>
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.1, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
+            style={{ fontFamily: 'var(--font-headings)', fontWeight: 400 }}
           >
-            Por que a <span className="text-gold">Gold</span> é líder no setor
+            Por que a <span className="text-gold" style={{ fontStyle: 'italic' }}>Gold</span> é a Escolha Definitiva
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true, margin: "-100px" }}
-            transition={{ duration: 0.6, delay: 0.2, ease: "easeOut" }}
+            transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+            style={{ fontSize: '1.15rem', maxWidth: '600px', margin: '1.5rem auto 0 auto' }}
           >
-            Entregamos criatividade, engenharia e execução impecável para transformar seu espaço em uma experiência de marca inesquecível.
+            Não entregamos apenas estruturas. Entregamos criatividade, engenharia de precisão e execução impecável.
           </motion.p>
         </div>
 
@@ -105,15 +115,8 @@ export const Diferenciais: React.FC = () => {
           {diferenciaisList.map((item, idx) => (
             <motion.div 
               key={idx} 
-              className="glass-panel card-diferencial"
+              className="card-diferencial"
               variants={cardVariants}
-              whileHover={{ 
-                y: -12, 
-                borderColor: 'rgba(232, 200, 106, 0.5)', 
-                boxShadow: '0 15px 35px rgba(232, 200, 106, 0.15)',
-                backgroundColor: 'rgba(255, 255, 255, 0.04)'
-              }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <div className="icon-container-dif">
                 {item.icon}
@@ -129,66 +132,75 @@ export const Diferenciais: React.FC = () => {
         .diferenciais-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          gap: 2rem;
+          gap: 4rem 3rem;
+          border-top: 1px solid rgba(255, 255, 255, 0.05);
+          padding-top: 5rem;
         }
 
         .card-diferencial {
-          padding: 2.5rem 2rem;
-          transition: border-color 0.4s ease, box-shadow 0.4s ease, background-color 0.4s ease;
           display: flex;
           flex-direction: column;
           align-items: flex-start;
           text-align: left;
-          border-radius: 16px;
+          position: relative;
+          padding-left: 1.5rem;
+          border-left: 1px solid rgba(255, 255, 255, 0.05);
+          transition: border-color 0.5s ease;
+        }
+
+        .card-diferencial:hover {
+          border-left-color: var(--gold);
         }
 
         .icon-container-dif {
-          padding: 1.2rem;
-          border-radius: 14px;
-          background: rgba(232, 200, 106, 0.1);
           color: var(--gold);
-          margin-bottom: 1.5rem;
+          margin-bottom: 2rem;
           display: flex;
           align-items: center;
           justify-content: center;
-          transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-          border: 1px solid rgba(232, 200, 106, 0.2);
+          transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .card-diferencial:hover .icon-container-dif {
-          background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-          color: var(--navy-dark);
-          box-shadow: 0 10px 25px rgba(232, 200, 106, 0.4);
-          transform: scale(1.1) rotate(5deg);
+          transform: scale(1.1);
         }
 
         .card-title-dif {
           margin-bottom: 1rem;
-          font-weight: 700;
-          font-size: 1.35rem;
+          font-family: var(--font-headings);
+          font-weight: 500;
+          font-size: 1.5rem;
           color: var(--white);
-          transition: color 0.3s ease;
-        }
-
-        .card-diferencial:hover .card-title-dif {
-          color: var(--gold);
+          letter-spacing: 0.02em;
         }
 
         .card-desc-dif {
           color: var(--text-secondary);
-          font-size: 1rem;
-          line-height: 1.6;
+          font-size: 0.95rem;
+          line-height: 1.8;
+          font-weight: 300;
         }
 
         @media (max-width: 992px) {
           .diferenciais-grid {
             grid-template-columns: repeat(2, 1fr);
+            gap: 3rem 2rem;
           }
         }
 
         @media (max-width: 576px) {
           .diferenciais-grid {
             grid-template-columns: 1fr;
+            padding-top: 3rem;
+          }
+          .card-diferencial {
+            padding-left: 0;
+            border-left: none;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding-top: 2rem;
+          }
+          .card-diferencial:hover {
+            border-top-color: var(--gold);
           }
         }
       `}</style>

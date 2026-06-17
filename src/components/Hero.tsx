@@ -9,40 +9,38 @@ export const Hero: React.FC = () => {
     offset: ["start start", "end start"]
   });
 
-  // Parallax effects
-  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "50%"]);
-  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "20%"]);
+  // Smooth, heavy parallax effects for luxury feel
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "30%"]);
+  const textY = useTransform(scrollYProgress, [0, 1], ["0%", "15%"]);
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
-
-  // Generate floating particle elements
-  const particles = Array.from({ length: 25 }, (_, i) => ({
-    id: i,
-    size: Math.random() * 6 + 2,
-    x: Math.random() * 100,
-    y: Math.random() * 100,
-    duration: Math.random() * 20 + 10,
-    delay: Math.random() * -20
-  }));
+  const scale = useTransform(scrollYProgress, [0, 1], [1, 1.05]);
 
   const whatsappNumber = "5543998420048";
-  const quoteMessage = encodeURIComponent("Olá! Estou no site da Gold Arquitetura e gostaria de solicitar um projeto para estande ou cenografia.");
-  const chatMessage = encodeURIComponent("Olá! Gostaria de conversar com um arquiteto da Gold sobre um projeto de estande ou cenografia.");
+  const quoteMessage = encodeURIComponent("Olá! Estou no site da Gold Arquitetura e gostaria de solicitar um projeto de alto padrão.");
+  const chatMessage = encodeURIComponent("Olá! Gostaria de conversar com um arquiteto da Gold sobre um projeto exclusivo.");
 
-  // Animation variants
+  // Slower, elegant animation variants
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.3,
+        delayChildren: 0.4
       }
     }
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: "easeOut" as const } }
+  const textRevealVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { 
+      opacity: 1, 
+      y: 0, 
+      transition: { 
+        duration: 1.2, 
+        ease: [0.16, 1, 0.3, 1] as const // Elegant ease out
+      } 
+    }
   };
 
   return (
@@ -56,10 +54,10 @@ export const Hero: React.FC = () => {
         overflow: 'hidden',
         display: 'flex',
         alignItems: 'center',
-        background: 'var(--navy-dark)',
+        background: 'var(--onyx-dark)',
       }}
     >
-      {/* Background Image with Parallax */}
+      {/* Background Image with Deep Parallax and Scale */}
       <motion.div
         style={{
           position: 'absolute',
@@ -67,52 +65,21 @@ export const Hero: React.FC = () => {
           left: 0,
           width: '100%',
           height: '120%', 
-          backgroundImage: 'linear-gradient(to bottom, rgba(6, 16, 34, 0.6) 0%, rgba(3, 8, 17, 0.95) 100%), url("https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop")',
+          backgroundImage: 'url("https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070&auto=format&fit=crop")',
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           y: bgY,
+          scale: scale,
           zIndex: 1,
         }}
-      />
-
-      {/* Floating Particles Overlay */}
-      <div 
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100%',
-          height: '100%',
-          pointerEvents: 'none',
-          zIndex: 2,
-          overflow: 'hidden'
-        }}
       >
-        {particles.map((particle) => (
-          <motion.div
-            key={particle.id}
-            style={{
-              position: 'absolute',
-              width: particle.size,
-              height: particle.size,
-              borderRadius: '50%',
-              backgroundColor: 'rgba(232, 200, 106, 0.3)',
-              left: `${particle.x}%`,
-              top: `${particle.y}%`,
-            }}
-            animate={{
-              y: ['0vh', '-100vh'],
-              opacity: [0, 0.8, 0],
-            }}
-            transition={{
-              duration: particle.duration,
-              repeat: Infinity,
-              delay: particle.delay,
-              ease: 'linear',
-            }}
-          />
-        ))}
-      </div>
+        {/* Luxury Vignette/Overlay - Deep Onyx Gradient */}
+        <div style={{
+          position: 'absolute',
+          top: 0, left: 0, right: 0, bottom: 0,
+          background: 'linear-gradient(to right, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, rgba(0,0,0,0.8) 100%), linear-gradient(to bottom, rgba(0,0,0,0.6) 0%, rgba(5,5,5,0.95) 100%)',
+        }} />
+      </motion.div>
 
       {/* Content Container */}
       <div 
@@ -130,72 +97,71 @@ export const Hero: React.FC = () => {
           initial="hidden"
           animate="visible"
         >
-          {/* Badge */}
+          {/* Badge - Minimalist */}
           <motion.div 
             className="badge"
-            variants={itemVariants}
+            variants={textRevealVariants}
+            style={{ 
+              borderColor: 'rgba(212, 175, 55, 0.3)',
+              color: 'var(--gold-light)',
+              letterSpacing: '0.25em',
+              padding: '0.5rem 1.5rem',
+              background: 'transparent'
+            }}
           >
-            ✦ Design & Cenografia de Alto Impacto
+            Design & Cenografia de Alto Impacto
           </motion.div>
 
-          {/* Heading */}
-          <motion.h1 
-            variants={itemVariants}
-            style={{ 
-              fontWeight: 800, 
-              textTransform: 'uppercase', 
-              maxWidth: '900px',
-              lineHeight: 1.1,
-              marginBottom: '1.5rem',
-              textShadow: '0 10px 30px rgba(0,0,0,0.5)',
-              letterSpacing: '-1px'
-            }}
-          >
-            Referência Nacional em Arquitetura Promocional e <span className="text-gold" style={{ display: 'inline-block' }}>Cenografia</span>
-          </motion.h1>
+          {/* Heading - Serif Luxury Typography */}
+          <div style={{ overflow: 'hidden', paddingBottom: '10px' }}>
+            <motion.h1 
+              variants={textRevealVariants}
+              style={{ 
+                fontFamily: 'var(--font-headings)',
+                fontWeight: 400, 
+                textTransform: 'none', 
+                maxWidth: '900px',
+                lineHeight: 1.1,
+                marginBottom: '2rem',
+                color: 'var(--white)',
+                letterSpacing: '-0.02em'
+              }}
+            >
+              Exclusividade em <br/>
+              <span className="text-gold" style={{ fontStyle: 'italic', display: 'inline-block', fontWeight: 500 }}>Arquitetura Promocional</span>
+            </motion.h1>
+          </div>
 
-          {/* Subtitle */}
-          <motion.p 
-            variants={itemVariants}
-            style={{ 
-              fontSize: '1.25rem', 
-              maxWidth: '650px', 
-              color: 'var(--text-secondary)',
-              marginBottom: '3rem',
-              lineHeight: 1.6,
-              textShadow: '0 4px 15px rgba(0,0,0,0.4)'
-            }}
-          >
-            Criamos experiências memoráveis para feiras e eventos corporativos. Estandes sob medida, cenografia impactante e montagem turnkey em todo o Brasil.
-          </motion.p>
+          {/* Subtitle - Thin, wide, elegant */}
+          <div style={{ overflow: 'hidden' }}>
+            <motion.p 
+              variants={textRevealVariants}
+              style={{ 
+                fontSize: '1.15rem', 
+                maxWidth: '550px', 
+                color: 'var(--text-secondary)',
+                marginBottom: '4rem',
+                lineHeight: 1.8,
+                fontWeight: 300,
+                letterSpacing: '0.02em'
+              }}
+            >
+              Projetos autorais e execução impecável para marcas que exigem o extraordinário em feiras, convenções e ambientes corporativos.
+            </motion.p>
+          </div>
 
           {/* Call-to-actions */}
           <motion.div 
-            variants={itemVariants}
-            style={{ display: 'flex', flexWrap: 'wrap', gap: '1.25rem' }}
+            variants={textRevealVariants}
+            style={{ display: 'flex', flexWrap: 'wrap', gap: '1.5rem' }}
           >
             <motion.a 
               href={`https://wa.me/${whatsappNumber}?text=${quoteMessage}`}
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-primary"
-              whileHover={{ 
-                scale: 1.05,
-                boxShadow: "0 15px 35px rgba(232, 200, 106, 0.4)"
-              }}
-              whileTap={{ scale: 0.98 }}
-              animate={{
-                boxShadow: ["0 0 0 rgba(232, 200, 106, 0)", "0 0 20px rgba(232, 200, 106, 0.3)", "0 0 0 rgba(232, 200, 106, 0)"]
-              }}
-              transition={{
-                boxShadow: {
-                  duration: 2,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }
-              }}
             >
-              Solicitar Projeto <ArrowRight size={18} />
+              Solicitar Projeto <ArrowRight size={18} style={{ marginLeft: '0.5rem' }} />
             </motion.a>
 
             <motion.a 
@@ -203,24 +169,22 @@ export const Hero: React.FC = () => {
               target="_blank"
               rel="noopener noreferrer"
               className="btn btn-secondary"
-              whileHover={{ scale: 1.05, backgroundColor: 'rgba(255, 255, 255, 0.1)' }}
-              whileTap={{ scale: 0.98 }}
             >
-              <Phone size={18} /> Falar no WhatsApp
+              <Phone size={18} style={{ marginRight: '0.5rem' }} /> Atendimento VIP
             </motion.a>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Decorative gradient mask at the bottom */}
+      {/* Luxury Fade to next section */}
       <div 
         style={{
           position: 'absolute',
           bottom: 0,
           left: 0,
           right: 0,
-          height: '150px',
-          background: 'linear-gradient(to top, var(--navy-dark) 0%, transparent 100%)',
+          height: '250px',
+          background: 'linear-gradient(to top, var(--onyx-dark) 0%, transparent 100%)',
           zIndex: 4,
           pointerEvents: 'none'
         }}
